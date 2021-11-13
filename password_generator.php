@@ -34,10 +34,7 @@
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="card card body p-5" style="background-color:#121212">
 
             <h4>Password Generator</h4>
-
-            <!-- Lo de abajo aún no lo pude hacer funcionar, la idea es que la cantidad de
-            caracteres que tenga la password sea variable y elegida por el usuario -->
-            <!--
+            
             <label for="length">Select the lenght of your password:</label>
             <select name="length" id="lenght" class="form-control">
                 <option value="6">6 Characters</option>
@@ -50,8 +47,7 @@
                 <option value="13">13 Characters</option>
                 <option value="14">14 Characters</option>
             </select>
-            -->
-
+            
             <div class="form-check form-switch my-2">
                 <label for="uppercase" class="form-check-label">Uppercase</label>
                 <input type="checkbox" name="uppercase" id="uppercase" class="form-check-input">
@@ -79,7 +75,8 @@
   
         $characters = array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
         $password_generated = "";
-        #$pass_lenght = $_POST["length"];  #Para el tema de la cantidad variable de caracteres de la password, que aún no pude hacer funcionar 
+        $pass_lenght = $_POST["length"];
+        $pass_lenght += 0;
         if ($_POST["uppercase"]) {
             array_push($characters,"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z" );
         }
@@ -89,17 +86,17 @@
         if ($_POST["special_chars"]) {
             array_push($characters,"'","-","_","!","#","$","%","&","/","(",")");
         }
-        $password_generated = array_rand($characters,10);
-        for($x=0;$x<10;$x+=1) { 
+        $password_generated = array_rand($characters,$pass_lenght);
+        for($x=0;$x<$pass_lenght;$x+=1) { 
             $password_final.=$characters[$password_generated[$x]];
         }
     }
     ?>  <!-- Fin lógica principal de la app -->
     
-    <div class="container p-5 text-light">
+    <div class="container p-2 text-light text-center">
         <div class="col-md-4 offset-md-4">
         <?php
-        echo "<h2>Pasword Generated: </h2> <h4>$password_final</h4>";
+        echo "<h4>Pasword Generated: <br> $password_final</h4>";
         ?>
         </div>
     </div>  <!-- Fin visualización del resultado -->
